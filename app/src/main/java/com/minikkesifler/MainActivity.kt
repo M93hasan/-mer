@@ -188,7 +188,7 @@ private fun GameTile(game: Game, onClick: () -> Unit) {
 
 @Composable
 private fun ChoiceGrid(options: List<String>, onChoice: (String) -> Unit) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxWidth().weight(1f, fill = false), verticalArrangement = Arrangement.spacedBy(12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxWidth().height(260.dp), verticalArrangement = Arrangement.spacedBy(12.dp), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
         items(options) { option ->
             Card(modifier = Modifier.fillMaxWidth().height(112.dp).clickable { onChoice(option) }, shape = RoundedCornerShape(22.dp), colors = CardDefaults.cardColors(containerColor = Palette[(option.hashCode() and Int.MAX_VALUE) % Palette.size])) {
                 Box(Modifier.fillMaxSize().padding(8.dp), contentAlignment = Alignment.Center) {
