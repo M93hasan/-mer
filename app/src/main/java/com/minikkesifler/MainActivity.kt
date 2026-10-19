@@ -129,7 +129,7 @@ private fun MinikKesifler(say: (String) -> Unit) {
                             Text("Bu resmin eşini bul:", fontSize = 19.sp, color = Ink)
                             Text(objects[matchTarget], fontSize = 72.sp)
                             Spacer(Modifier.height(12.dp))
-                            ChoiceGrid((objects + objects.shuffled()).shuffled()) { chosen ->
+                            ChoiceGrid(objects.shuffled()) { chosen ->
                                 if (chosen == objects[matchTarget]) correct { matchTarget = Random.nextInt(3) } else wrong()
                             }
                         }
