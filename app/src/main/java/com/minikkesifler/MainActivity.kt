@@ -263,30 +263,26 @@ private fun MinikKesifler(
                             Spacer(Modifier.height(15.dp))
                             when (game!!) {
                                 Game.COLORS -> {
-                                    Text("Bu rengi bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
+                                    Text("${colors[target]} rengini bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
                                     Spacer(Modifier.height(12.dp))
-                                    Box(Modifier.size(86.dp).clip(CircleShape).background(colorValues[target]), contentAlignment = Alignment.Center) {
-                                        Text("?", fontSize = 38.sp, fontWeight = FontWeight.Black, color = Color.White)
-                                    }
-                                    Text(colors[target], fontSize = 19.sp, color = Ink, fontWeight = FontWeight.Bold)
+                                    Text("Doğru rengi seç bakalım 🌈", fontSize = 15.sp, color = Muted)
                                     Spacer(Modifier.height(15.dp))
                                     OptionGrid(colors, textSize = 17, optionColor = { colorValues[colors.indexOf(it)] }) {
                                         if (it == colors[target]) correct() else tryAgain()
                                     }
                                 }
                                 Game.ANIMALS -> {
-                                    Text("Hangi hayvan bu?", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
-                                    Text(animals[target], fontSize = 76.sp)
-                                    Text(animalNames[target], fontSize = 18.sp, color = Muted)
+                                    Text("${animalNames[target]} nerede?", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
+                                    Text("Minik hayvan dostunu bul 🐾", fontSize = 15.sp, color = Muted)
+                                    Spacer(Modifier.height(8.dp))
                                     Spacer(Modifier.height(12.dp))
                                     OptionGrid(animals, textSize = 40, optionColor = { Color(0xFFFFE4D9) }) {
                                         if (it == animals[target]) correct() else tryAgain()
                                     }
                                 }
                                 Game.SHAPES -> {
-                                    Text("Aynı şekli bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
-                                    Text(shapes[target % shapes.size], fontSize = 76.sp)
-                                    Text(shapeNames[target % shapeNames.size], fontSize = 18.sp, color = Muted)
+                                    Text("${shapeNames[target % shapeNames.size]} şeklini bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
+                                    Text("Şekil treni seni bekliyor 🚂", fontSize = 15.sp, color = Muted)
                                     Spacer(Modifier.height(12.dp))
                                     OptionGrid(shapes, textSize = 40, optionColor = { Color(0xFFF0E8FF) }) {
                                         if (it == shapes[target % shapes.size]) correct() else tryAgain()
@@ -314,18 +310,16 @@ private fun MinikKesifler(
                                     }
                                 }
                                 Game.VEHICLES -> {
-                                    Text("Bu taşıtı bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
-                                    Text(vehicles[target], fontSize = 76.sp)
-                                    Text(vehicleNames[target], fontSize = 18.sp, color = Muted)
+                                    Text("${vehicleNames[target]} hangisi?", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
+                                    Text("Doğru taşıta dokun 🚗", fontSize = 15.sp, color = Muted)
                                     Spacer(Modifier.height(12.dp))
                                     OptionGrid(vehicles, textSize = 40, optionColor = { Sky.copy(alpha = .35f) }) {
                                         if (it == vehicles[target]) correct() else tryAgain()
                                     }
                                 }
                                 Game.FEELINGS -> {
-                                    Text("Yüz nasıl hissediyor?", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
-                                    Text(feelings[target], fontSize = 78.sp)
-                                    Text(feelingNames[target], fontSize = 18.sp, color = Muted)
+                                    Text("${feelingNames[target]} yüzü bul!", fontSize = 23.sp, fontWeight = FontWeight.ExtraBold, color = Ink)
+                                    Text("Hangi yüz bu duyguyu gösteriyor? 😊", fontSize = 15.sp, color = Muted)
                                     Spacer(Modifier.height(12.dp))
                                     OptionGrid(feelings, textSize = 40, optionColor = { Pink.copy(alpha = .4f) }) {
                                         if (it == feelings[target]) correct() else tryAgain()
