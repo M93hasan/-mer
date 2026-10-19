@@ -35,7 +35,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         tone = ToneGenerator(AudioManager.STREAM_MUSIC, 75)
         tts = TextToSpeech(this) { status -> if (status == TextToSpeech.SUCCESS) tts?.language = Locale("tr", "TR") }
-        setContent { MinikKesifler { say(it) } }
+        val prefs = getSharedPreferences("minik_kesifler", MODE_PRIVATE)
+        val savedPoints = prefs.getInt("points", 0)
+        setContent { MinikKesifler(initialPoints = savedPoints, onPointsChanged = { value -> prefs.edit().putInt("points", value).apply() }) { say(it) } }
     }
     private fun say(text: String) {
         tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null, "minik-kesif")
@@ -58,9 +60,10 @@ private enum class Game(val title: String, val emoji: String, val subtitle: Stri
 }
 
 @Composable
-private fun MinikKesifler(say: (String) -> Unit) {
+private fun MinikKesifler(initialPoints: Int, onPointsChanged: (Int) -> Unit, say: (String) -> Unit) {
     var game by remember { mutableStateOf(Game.HOME) }
-    var points by remember { mutableIntStateOf(0) }
+    var points by remember { mutableIntStateOf(initialPoints) }
+    fun addPoint() { points++; onPointsChanged(points) }
     var targetColor by remember { mutableIntStateOf(Random.nextInt(6)) }
     var matchTarget by remember { mutableIntStateOf(Random.nextInt(3)) }
     var shapeTarget by remember { mutableIntStateOf(Random.nextInt(4)) }
@@ -73,7 +76,7 @@ private fun MinikKesifler(say: (String) -> Unit) {
     val animals = listOf("🐱", "🐶", "🐰", "🐸")
     val animalNames = listOf("Kedi", "Köpek", "Tavşan", "Kurbağa")
     fun correct(next: () -> Unit) {
-        points++
+        addPoint()
         feedback = "Aferin! Harika yaptın! ⭐"
         say("Aferin! Harika yaptın!")
         next()
@@ -160,7 +163,7 @@ private fun MinikKesifler(say: (String) -> Unit) {
                             ChoiceGrid(listOf("🥁", "🎹", "🔔", "👏")) { chosen ->
                                 say(when (chosen) { "🥁" -> "Güm güm!"; "🎹" -> "Ding!"; "🔔" -> "Çın çın!"; else -> "Şak şak!" })
                                 feedback = "Harika ritim! $chosen"
-                                points++
+                                addPoint()
                             }
                         }
                         Game.HOME -> Unit
